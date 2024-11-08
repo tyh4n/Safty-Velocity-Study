@@ -1,1 +1,3 @@
-# max-safty-velocity-study
+# Safty-Velocity-Study
+
+This code uses MATLAB and Simscape to simulate the braking trajectory of a ballbot model carrying a payload. The payload is constrained solely by friction force, meaning it could slide if the braking force exceeds the frictional limit. The purpose of the simulation is to determine the maximum initial speed at which the robot can begin braking without causing the payload to slip.
