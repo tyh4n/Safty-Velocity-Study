@@ -19,7 +19,7 @@ g = 9.81;           % [m/s^2]
 
 % Desired states
 theta_final_desired = 4 * pi;   % Desired rotation of the ball [rad]
-theta_d_init = 11.2;            % [rad/s]
+theta_d_init = 0;            % [rad/s]
 theta_d_final_desired = 0;      % [rad/s]
 
 % Define weights
@@ -37,9 +37,9 @@ params = [I_ball, m_ball, I_body, m_body, r, l, g, alpha, beta, gamma, t_interva
 %% Define trajectory
 t = t_init : t_interval : t_final;
 % Static initial configuration to static final configuration
-% traj_phi = phi_a * sech(k * (2 * t - t_middle - t_init) / (t_middle - t_init)) + phi_b * sech(k * (2 * t - t_final - t_middle) / (t_final - t_middle));
+traj_phi = phi_a * sech(k * (2 * t - t_middle - t_init) / (t_middle - t_init)) + phi_b * sech(k * (2 * t - t_final - t_middle) / (t_final - t_middle));
 % Deceleration trajectory
-traj_phi = phi_a * sech(k * (2 * t - t_final - t_init) / (t_final - t_init)) - phi_a * sech(1);
+% traj_phi = phi_a * sech(k * (2 * t - t_final - t_init) / (t_final - t_init)) - phi_a * sech(1);
 output = phi2tau(traj_phi, params);
 tau = output{1};
 phi_d = output{3};
@@ -50,9 +50,9 @@ theta_dd = output{7};
 
 %% Define optimization problem
 % Static initial configuration to static final configuration
-% F = w1 * sum((t_interval/1000) * tau.^2) + w2 * theta_d(end)^2 + w3 * (theta(end) - theta_final_desired)^2;
+F = w1 * sum((t_interval/1000) * tau.^2) + w2 * theta_d(end)^2 + w3 * (theta(end) - theta_final_desired)^2;
 % Deceleration trajectory
-F = w1 * sum((t_interval/1000) * tau.^2) + w2 * theta_d(end)^2;
+% F = w1 * sum((t_interval/1000) * tau.^2) + w2 * theta_d(end)^2;
 obj_fun = matlabFunction(F, 'var', {phi_scale}); 
 phi0 = [-7, -1]'.*(pi/180);
 phi_lb = [-30, -30]'.*(pi/180);

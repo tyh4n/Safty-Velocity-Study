@@ -18,6 +18,15 @@ g = 9.81;           % [m/s^2]
 w_seat = 0.4;       % Seat width [m]
 d_seat = 0.4;       % Seat depth [m]
 
+% Contact Model
+k_gy = 80000;       % vertical ground interaction stiffness [N/m]
+v_gy_max = 0.03;    % maximum vertical ground relaxation speed [m/s]
+k_gx = 8000;        % horizontal ground interaction stiffness [N/m]
+v_gx_max = 0.03;    % maximum horizontal ground relaxation speed [m/s]
+mu_stick = 0.9;     % stiction coefficient
+mu_slide = 0.8;     % sliding coefficient
+vLimit = 0.01;      % slip-stic transition velocity [m/s]
+
 %% Load saved trajectory
 load('data/traj_1.mat', 'tau_sol', 'traj_sol', 'phi_d_sol', 'phi_dd_sol', 'theta_sol', 'theta_d_sol', 'theta_dd_sol', 'time');
 
